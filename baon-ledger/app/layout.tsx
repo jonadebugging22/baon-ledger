@@ -24,7 +24,7 @@ const plexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: "Baon Ledger",
-  description: "Araw-araw na tracker ng baon at allowance mo.",
+  description: "Your daily baon and allowance tracker.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,

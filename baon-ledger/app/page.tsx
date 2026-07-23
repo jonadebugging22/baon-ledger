@@ -18,7 +18,7 @@ export default function Home() {
   if (session === undefined) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <p className="font-mono text-inkFaint text-sm">binubuksan ang ledger…</p>
+        <p className="font-mono text-inkFaint text-sm">opening the ledger…</p>
       </main>
     );
   }
@@ -46,7 +46,7 @@ function AuthGate() {
     const { error } = await fn;
     setLoading(false);
     if (error) setError(error.message);
-    else if (mode === "signup") setNotice("Nagawa na ang account. Mag-sign in ka na.");
+    else if (mode === "signup") setNotice("Account created. Please sign in.");
   }
 
   return (
@@ -57,7 +57,7 @@ function AuthGate() {
             Baon Ledger
           </h1>
           <p className="font-mono text-xs text-inkFaint mt-1 tracking-wide">
-            araw-araw na tala ng gastos
+            your daily expense tracker
           </p>
         </div>
 
@@ -72,7 +72,7 @@ function AuthGate() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full bg-transparent border-b border-paperLine focus:border-ledger outline-none py-2 mb-4 font-body text-ink"
-            placeholder="ikaw@halimbawa.com"
+            placeholder="you@example.com"
           />
           <label className="block font-mono text-xs text-inkFaint mb-1">password</label>
           <input
@@ -93,7 +93,7 @@ function AuthGate() {
             disabled={loading}
             className="w-full bg-ledger hover:bg-ledgerDark text-paper font-body font-medium py-2.5 transition-colors disabled:opacity-60"
           >
-            {loading ? "sandali…" : mode === "signin" ? "Mag-sign in" : "Gumawa ng account"}
+            {loading ? "just a sec…" : mode === "signin" ? "Sign in" : "Create account"}
           </button>
         </form>
 
@@ -101,7 +101,7 @@ function AuthGate() {
           onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
           className="w-full text-center text-sm text-inkFaint mt-4 underline decoration-paperLine underline-offset-4"
         >
-          {mode === "signin" ? "Wala pang account? Mag-sign up" : "May account na? Mag-sign in"}
+          {mode === "signin" ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
         </button>
       </div>
     </main>
@@ -159,7 +159,7 @@ function Ledger({ session }: { session: Session }) {
     const label = `${cursor.toLocaleDateString("en-PH", {
       month: "short",
       day: "numeric",
-    })} – ${budget.period_type === "weekly" ? "linggo" : "buwan"} na ito`;
+    })} – this ${budget.period_type === "weekly" ? "week" : "month"}`;
     return {
       spent: spentAmt,
       remaining: budget.period_amount + topupAmt - spentAmt,
@@ -180,7 +180,7 @@ function Ledger({ session }: { session: Session }) {
   if (loading) {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <p className="font-mono text-inkFaint text-sm">binubuksan ang ledger…</p>
+        <p className="font-mono text-inkFaint text-sm">opening the ledger…</p>
       </main>
     );
   }
@@ -223,23 +223,23 @@ function Ledger({ session }: { session: Session }) {
               >
                 ₱{remaining.toFixed(2)}
               </p>
-              <p className="font-body text-sm text-inkFaint mt-1">natitira</p>
+              <p className="font-body text-sm text-inkFaint mt-1">remaining</p>
               <div className="flex justify-between font-mono text-xs text-inkFaint mt-4 pt-3 border-t border-paperLine">
-                <span>gastos: ₱{spent.toFixed(2)}</span>
+                <span>spent: ₱{spent.toFixed(2)}</span>
                 <span>allowance: ₱{Number(budget.period_amount).toFixed(2)}</span>
               </div>
               <button
                 onClick={() => setShowSetup(true)}
                 className="mt-3 font-mono text-[11px] text-inkFaint underline underline-offset-4"
               >
-                baguhin ang allowance
+                change allowance
               </button>
             </section>
 
             {byCategory.length > 0 && (
               <section className="mb-6">
                 <h2 className="font-mono text-xs text-inkFaint uppercase tracking-widest mb-2">
-                  saan napunta
+                  where it went
                 </h2>
                 <div className="space-y-2">
                   {byCategory.map(([cat, amt]) => {
@@ -270,12 +270,12 @@ function Ledger({ session }: { session: Session }) {
 
             <section className="mt-8">
               <h2 className="font-mono text-xs text-inkFaint uppercase tracking-widest mb-2">
-                mga tala
+                entries
               </h2>
               <div className="border-t border-paperLine">
                 {txns.length === 0 && (
                   <p className="font-body text-sm text-inkFaint py-6 text-center">
-                    Wala pang entry. Idagdag ang una mong gastos sa itaas.
+                    No entries yet. Add your first expense above.
                   </p>
                 )}
                 {txns.map((t) => (
@@ -352,9 +352,9 @@ function BudgetSetup({
   return (
     <section className="mt-8 bg-white/40 border border-paperLine p-5 fade-in">
       <h2 className="font-display font-semibold text-lg text-ink mb-4">
-        Itakda ang allowance
+        Set your allowance
       </h2>
-      <label className="block font-mono text-xs text-inkFaint mb-1">halaga (₱)</label>
+      <label className="block font-mono text-xs text-inkFaint mb-1">amount (₱)</label>
       <input
         type="number"
         inputMode="decimal"
@@ -363,7 +363,7 @@ function BudgetSetup({
         placeholder="500"
         className="w-full bg-transparent border-b border-paperLine focus:border-ledger outline-none py-2 mb-4 font-mono text-lg text-ink"
       />
-      <label className="block font-mono text-xs text-inkFaint mb-2">bawat</label>
+      <label className="block font-mono text-xs text-inkFaint mb-2">per</label>
       <div className="flex gap-2 mb-5">
         {(["weekly", "monthly"] as const).map((opt) => (
           <button
@@ -375,7 +375,7 @@ function BudgetSetup({
                 : "border-paperLine text-inkFaint"
             }`}
           >
-            {opt === "weekly" ? "linggo" : "buwan"}
+            {opt === "weekly" ? "week" : "month"}
           </button>
         ))}
       </div>
@@ -385,7 +385,7 @@ function BudgetSetup({
             onClick={onCancel}
             className="flex-1 py-2.5 font-body text-sm border border-paperLine text-inkFaint"
           >
-            kanselahin
+            cancel
           </button>
         )}
         <button
@@ -393,7 +393,7 @@ function BudgetSetup({
           disabled={saving || !amount}
           className="flex-1 bg-ledger hover:bg-ledgerDark text-paper font-body text-sm font-medium py-2.5 disabled:opacity-60"
         >
-          {saving ? "sinesave…" : "i-save"}
+          {saving ? "saving…" : "save"}
         </button>
       </div>
     </section>
@@ -445,7 +445,7 @@ function AddEntry({
         onClick={() => setOpen(true)}
         className="w-full bg-ink text-paper font-body font-medium py-3 mt-2"
       >
-        + Idagdag ang gastos
+        + Add expense
       </button>
     );
   }
@@ -463,14 +463,14 @@ function AddEntry({
                 : "border-paperLine text-inkFaint"
             }`}
           >
-            {k === "expense" ? "gastos" : "dagdag na pera"}
+            {k === "expense" ? "expense" : "add funds"}
           </button>
         ))}
       </div>
 
       {kind === "expense" && (
         <>
-          <label className="block font-mono text-xs text-inkFaint mb-1">kategorya</label>
+          <label className="block font-mono text-xs text-inkFaint mb-1">category</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -485,7 +485,7 @@ function AddEntry({
         </>
       )}
 
-      <label className="block font-mono text-xs text-inkFaint mb-1">halaga (₱)</label>
+      <label className="block font-mono text-xs text-inkFaint mb-1">amount (₱)</label>
       <input
         type="number"
         inputMode="decimal"
@@ -495,12 +495,12 @@ function AddEntry({
         className="w-full bg-transparent border-b border-paperLine focus:border-ledger outline-none py-2 mb-4 font-mono text-lg text-ink"
       />
 
-      <label className="block font-mono text-xs text-inkFaint mb-1">note (opsyonal)</label>
+      <label className="block font-mono text-xs text-inkFaint mb-1">note (optional)</label>
       <input
         type="text"
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        placeholder="hal. jeep papuntang school"
+        placeholder="e.g. jeepney fare to school"
         className="w-full bg-transparent border-b border-paperLine focus:border-ledger outline-none py-2 mb-5 font-body text-sm text-ink"
       />
 
@@ -509,14 +509,14 @@ function AddEntry({
           onClick={() => setOpen(false)}
           className="flex-1 py-2.5 font-body text-sm border border-paperLine text-inkFaint"
         >
-          kanselahin
+          cancel
         </button>
         <button
           onClick={submit}
           disabled={saving || !amount}
           className="flex-1 bg-ledger hover:bg-ledgerDark text-paper font-body text-sm font-medium py-2.5 disabled:opacity-60"
         >
-          {saving ? "sinesave…" : "i-save"}
+          {saving ? "saving…" : "save"}
         </button>
       </div>
     </section>

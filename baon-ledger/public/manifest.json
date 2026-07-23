@@ -1,7 +1,7 @@
 {
   "name": "Baon Ledger",
   "short_name": "Baon Ledger",
-  "description": "Araw-araw na tala ng baon at allowance mo.",
+  "description": "Your daily baon and allowance tracker.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#EFEAE0",

@@ -26,9 +26,9 @@ export type BudgetSetting = {
 };
 
 export const CATEGORIES = [
-  "Baon/Pagkain",
-  "Pamasahe",
+  "Food/Baon",
+  "Transportation",
   "Printing/Projects",
   "Load/Internet",
-  "Iba pa",
+  "Other",
 ];
