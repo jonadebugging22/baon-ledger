@@ -54,7 +54,7 @@ function AuthGate() {
       <div className="w-full max-w-sm fade-in">
         <div className="text-center mb-8">
           <h1 className="font-display italic font-semibold text-3xl text-ink">
-            Baon Ledger
+            DailySpend
           </h1>
           <p className="font-mono text-xs text-inkFaint mt-1 tracking-wide">
             your daily expense tracker
@@ -189,7 +189,7 @@ function Ledger({ session }: { session: Session }) {
     <main className="min-h-screen bg-paper pb-24">
       <header className="border-b border-paperLine px-5 py-4 flex items-center justify-between sticky top-0 bg-paper/95 backdrop-blur z-10">
         <h1 className="font-display italic font-semibold text-xl text-ink">
-          Baon Ledger
+          DailySpend
         </h1>
         <button
           onClick={() => supabase.auth.signOut()}

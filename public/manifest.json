@@ -1,6 +1,6 @@
 {
-  "name": "Baon Ledger",
-  "short_name": "Baon Ledger",
+  "name": "DailySpend",
+  "short_name": "DailySpend",
   "description": "Your daily baon and allowance tracker.",
   "start_url": "/",
   "display": "standalone",
